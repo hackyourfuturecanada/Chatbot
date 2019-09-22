@@ -3,11 +3,11 @@
 
 let bot = [
     { input: "Hello",
-        output:["a" ,"ssb","ccccccc"] },
+        output:["Good morning" ,"Good evnning","Hello, how are you?"] },
     { input: "what is your name",
-        output: ["a" ,"b","c"]  },
+        output: ["not sure" ,"nothing","chatbot"]  },
     { input: "How old are you",
-        output:["a" ,"b","c"] },
+        output:["0" ,"very old","not sure"] },
     
     ]
     
