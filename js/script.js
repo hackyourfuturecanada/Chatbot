@@ -1,10 +1,5 @@
 //1.In your JavaScript code, declare a variable and initialize it as an object.
 //2.Add two properties to the object: ‘input’ and ‘output’.
-// const chatbot = {
-//     input:['hello', 'how are you?', 'what is your favourite colour?'],
-//     output:['hi', 'great!', 'i have so many favorites it\'s hard to choose one.']
-// };
-//console.log(chatbot);
 const chatbot = [
     {
         input:  ['hello', 'hi', 'greetings'],
@@ -20,18 +15,17 @@ const chatbot = [
     },
 
 ];
-//get a random number between 0 and 2
+
 
 function reply() {
-
+    //get a random number between 0 and 2
     let randomNumber = Math.floor((Math.random() * 3));
+
     //get the input value ,, and convert it to lowercase
     let question = document.getElementById('input').value.toLowerCase();
     let filterType = null;
     //get the array mach the input value
-    //const output = chatbot.filter(item => item.input === question);
     const output = chatbot.filter(item => item.input.includes(question));
-    //console.log(output.indexOf(question));
 
     //if there is nothing inside the input then do nothing
     if(question === ''){ return false; }
@@ -69,6 +63,5 @@ document.getElementById('chatbot-form').addEventListener('submit', function(e) {
     e.preventDefault();
     reply();
     document.getElementById('chatbot-form').reset();
-
 })
 
