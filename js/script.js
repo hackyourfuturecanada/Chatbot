@@ -7,16 +7,16 @@
 //console.log(chatbot);
 const chatbot = [
     {
-        input: 'hello',
-        output: ['Hello', 'Hi', 'Greetings']
+        input:  ['hello', 'hi', 'greetings'],
+        output: ['hello', 'hey', 'greetings']
     },
     {
-        input: 'how are you?',
-        output: ['Fine', 'Great', 'Not so good']
+        input:  ['how are you?', 'how is the weather today?', 'how is Canada doing in the Olympics?'],
+        output: ['fine', 'great', 'not so good']
     },
     {
-        input: 'what is your favourite colour?',
-        output: ['I am not sure', 'i have so many favorites it\'s hard to choose one.', 'I like every one']
+        input:  ['what is your favourite colour?', 'who is your favourite HYF instructor?', 'who is your role model?'],
+        output: ['i am not sure', 'i have so many favorites it\'s hard to choose one.', 'i like every one']
     },
 
 ];
@@ -29,7 +29,9 @@ function reply() {
     let question = document.getElementById('input').value.toLowerCase();
     let filterType = null;
     //get the array mach the input value
-    const output = chatbot.filter(item => item.input === question);
+    //const output = chatbot.filter(item => item.input === question);
+    const output = chatbot.filter(item => item.input.includes(question));
+    //console.log(output.indexOf(question));
 
     //if there is nothing inside the input then do nothing
     if(question === ''){ return false; }
@@ -55,9 +57,10 @@ function reply() {
 //this function to add a new message to the top of the textarea
 function appendToOutput(msg, sender) {
     //who send the msg ? bot or user(you)
-    sender = (sender) ? 'Bot':'You';
+    sender = (sender) ? 'ChatBot':'You';
+    let newLine = (sender === 'ChatBot')? '\n':'\n\n';
     //get the old value ot textarea and add to it the new msg
-    document.getElementById('output').textContent = sender + ' : ' + msg +'\n'+ document.getElementById('output').textContent;
+    document.getElementById('output').textContent = sender + ' : ' + msg + newLine + document.getElementById('output').textContent;
 }
 
 
