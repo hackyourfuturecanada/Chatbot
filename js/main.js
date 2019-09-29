@@ -4,22 +4,22 @@ Chatbot2
 */
 // contains all inputs and outputs
 let data = [{
-        input: 'Hi',
+        input: ['hi','hey!','yo yo'],
         output: ['Hello', 'Hey !', 'Whats up?']
     },
 
     {
-        input: 'How are you?',
+        input: ['how are you?','how is it going?','how are you doing?'],
         output: ['good', 'not bad', 'doing well']
     },
 
     {
-        input: 'What is your favourite color?',
+        input: ['what is your favourite color?','what color do you prefer','tell me what color you like'],
         output: ['red', 'gray', 'black']
     },
 
     {
-        input: 'Where are you',
+        input: ['where are you','are you near by','where are you located'],
         output: ['home', 'at work', 'on  vacation']
     }
 ];
@@ -31,43 +31,41 @@ iterates through an array to find a question simillar to user's input
 
 const findSimillarQuestion = givenInput => (item) => {
  //   return item.input.toUpperCase().includes(givenInput.toUpperCase());
-    return item.input.toUpperCase() == givenInput.toUpperCase();
+    return item.input.includes(givenInput.toLowerCase()) ;
 }
 
 
 
 // repaly function
 const replay = () => {
+    let bot;
     let question = document.getElementById("input").value;
     let txtArea = document.getElementById("output");
     let rndmNumber = Math.floor(Math.random() * data[0].output.length);
     let detectedQuestion = data.filter(findSimillarQuestion(question))[0];
 
     if (detectedQuestion) {
-         let maxAnswer=detectedQuestion.output.sort()[detectedQuestion.output.length-1];
-         let minAnswer=detectedQuestion.output.sort()[0]
+         let maxAnswer= detectedQuestion.output.sort((a,b)=> a.length - b.length )[detectedQuestion.output.length-1];
+         let minAnswer= detectedQuestion.output[0];
+         console.log(minAnswer)
 
-        //assign the longest answer to maxAnswer
-        /*
-        detectedQuestion.output.filter(item => {
-            if (item.length > maxAnswer.length) maxAnswer = item;
-        });
-        */
-        //assign the shortest answer to minAnswer
+        if (document.getElementById('shortest').checked){
+            bot=minAnswer;
+        }
+        else if (document.getElementById('longest').checked){
+            bot=maxAnswer;
+        }
+        else{
+            bot = detectedQuestion.output[rndmNumber];
+            console.log(bot)
+        }
 
-        /*detectedQuestion.output.filter(item => {
-            if (item.length < minAnswer.length) minAnswer = item;
-        });
-        */
-        if (document.getElementById('shortest').checked)
-            txtArea.innerHTML = minAnswer;
-        else if (document.getElementById('longest').checked)
-            txtArea.innerHTML = maxAnswer;
-        else
-            txtArea.innerHTML = detectedQuestion.output[rndmNumber];
+    } else{
+            bot = " I do not understand the command ";
+                }
+        // assign the output to teaxtarea
+        txtArea.innerHTML +=`You: ${question}\nbot: ${bot}\n\n` ;
 
-    } else
-        txtArea.innerHTML = "I do not understand that command";
 
 } // end of replay
 
