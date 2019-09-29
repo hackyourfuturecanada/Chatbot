@@ -1,16 +1,19 @@
-
-//properties added to the array as objec
-
-var chatbot = [{
-        input: 'hello',
-        output: ['Hi', 'Hello',  'Greetings']},
-
-    {input: 'what is your favourite colour?',
-      output: ['I am not sure.', 'I like every one','There are too many to choose from' ]},
-
-    {input: 'how are you?',
-     output: ['Fine', 'Great', 'Not so good']},
-   ];
+const chatbot = [
+    {
+        input:  ['hello', 'hi', 'greetings'],
+        output: ['Hello', 'Hey', 'Greetings']
+    },
+    {
+        input:  ['what is your favourite colour?', 'who is your favourite HYF instructor?', 'who is your role model?'],
+        output: ['I am not sure.','There are too many to choose from', 'I like every one']
+    },
+   
+    {
+        input:  ['how are you?', 'how is the weather today?', 'how is Canada doing in the Olympics?'],
+        output: ['Fine', 'Great', 'Not so good']
+    },
+ 
+];
 
 
 //print variable
@@ -22,11 +25,10 @@ function reply() {
 //input selected, assigned a variable and turned to lowercase
     let question = document.getElementById("input").value.toLowerCase();
 
-    let filterType = null
-
+    
 
   //filter was used to return object which s inside the array  
-    const answer = chatbot.filter( item => {return item.input === question} )
+    const answer = chatbot.filter( item => item.input.includes(question))
 
 //created random number between 0 and 2
     let randomNumber = Math.floor(Math.random()*3);
@@ -45,15 +47,24 @@ function reply() {
             //for shortest answer
         if(shortest.checked === true){
 
-            document.getElementById("output").value=answer[0].output[0];
+            document.getElementById("output").value +="you :  "+question+ '\n';
+            
+            document.getElementById("output").value +="bot :  "+ answer[0].output.sort((a, b) => a.length - b.length)[0]+ '\n' +'\n';
 
             //for longest answer
         }else if (longest.checked === true){
-            document.getElementById("output").value=answer[0].output[2];
+          
+          
+            document.getElementById("output").value +="you :  "+question+ '\n';
+          
+            document.getElementById("output").value +="bot :  "+answer[0].output.sort((a, b) => b.length - a.length)[answer.length-1]+ '\n' +'\n';
       
             //for random answer      
         }else {
-            document.getElementById("output").value=answer[0].output[randomNumber];
+          
+          
+            document.getElementById("output").value +="you :  "+question+ '\n';
+            document.getElementById("output").value += "bot :  "+ answer[0].output.sort((a, b) => b.length - a.length)[randomNumber]+ '\n' + '\n';
         }
 
     }else{
