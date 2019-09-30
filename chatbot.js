@@ -1,52 +1,67 @@
-
-
-
 let bot = [
-    { input: "Hello",
-        output:["Good morning" ,"Good evnning","Hello, how are you?"] },
-    { input: "what is your name",
-        output: ["not sure" ,"nothing","chatbot"]  },
-    { input: "How old are you",
-        output:["0" ,"very old","not sure"] },
+    { 
+        input:  ["hello!", "how are you?", "how is the weather today?"], 
+        output: ["Hi" ,"I am good","Fantastic?"] 
+    },
+    { 
+        input:  ["what is your name?", "how old are you?", "What is your major?"],
+        output: ["Riham", "very old", "astronaut"]  
+    },
+    {
+        input:  ["where are you from?", "how many language do you speak?", "do you have pets?"],
+        output: [" From a planet called the earth", "four ", "no"] 
+    },
+
+];
     
-    ]
-    
-/*Your reply function will now have the following:
-Declare a variable called ‘question’ and assign to it the value of the HTML <input> 
-element. HINT: you should already have this done from last week.*/
+
+
 let outputDom = document.getElementById("output");
  
 function reply() {
-    var question = document.getElementById("input").value;
+    let question = document.getElementById("input").value.toLowerCase();
+    console.log(question)
     let randomNumber =  Math.floor(Math.random()*3);
     let filterType = null;
-    
-    filterType =  bot.filter( item =>
-        item.input == question
+
+        filterType = bot.filter(element => 
+        element.input.includes(question)
         );
+    console.log(output);
+
+
+
+    //filterType =  bot.filter( item =>
+     //   item.input == question
+       // );
+   
+        let asnwer = ""
 
         if(filterType.length > 0){
             let asnwers = filterType[0].output;
             if(document.getElementById("shortest").checked==true){
-               outputDom.innerHTML = asnwers.sort()[0];
+             asnwer = asnwers.sort()[0];
+
+            
+
 
             }else if (document.getElementById("longest").checked==true){
-                outputDom.innerHTML = asnwers.sort()[asnwers.length-1];
-
-                    console.log("longest answer");
+                answer = asnwers.sort()[asnwers.length-1];
+                   
             }else{
-                outputDom.innerHTML = asnwers[randomNumber];
-                    console.log("random answer");
+               answer = asnwers[randomNumber];
+                   
 
             }
         }
-    
-         
+          
 
-     else {
-        document.getElementById('output').innerHTML = "I don't understand that command";
-
+     else { 
+        //document.getElementById('output').innerHTML += `bot` + ` : ` + ``+ `I don't understand that command` + `\n` + `User` + ` : ` + `` + question;
+            answer="I do not understand";
     }
+
+         outputDom.innerHTML += `user: ${question}\nbot ${answer}\n`
 }
 
 
