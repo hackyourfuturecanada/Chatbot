@@ -1,11 +1,16 @@
 const chatBotObject = [
-    {input:"Hello",
-    output:["Hello", "Hey", "Greetings"]},
-    {input:"What is your favorite color",
-    output:["I am not sure","There are too many to choose from","I like everyone"]},
-    {input:"How are you?",
-    output:["Fine", "Great","Not so good"]}
-  ];
+    {
+        input:["Hello","Hi", "Greetings"],
+        output:["Hello", "Hey", "Greetings"]
+    },
+    {
+        input:["What is your favorite color","Who is your favourite HYF instructor?", "Who is your role model?"],
+        output:["I am not sure","There are too many to choose from","I like everyone"]
+    },
+    {
+        input:["How are you?","How is the weather today?", "How is Canada doing in the Olympics?"], 
+        output:["Fine", "Great","Not so good"]
+    }];
 
 
 
@@ -18,11 +23,14 @@ function reply() {
         return b.length - a.length});
     if (sortedOutput.length>0){
         if(document.getElementById("longest").checked) {
-            document.getElementById("output").value = sortedOutput[0]
+            document.getElementById("input").value +="you :" + question
+            document.getElementById("output").value +="chatbot: " + sortedOutput[0]
         } else if (document.getElementById("shortest").checked){
-            document.getElementById("output").value = sortedOutput[1]
+            document.getElementById("input").value +="you :" + question
+            document.getElementById("output").value += "chatbot: " + sortedOutput[1]
         } else {
-            document.getElementById("output").value = sortedOutput[randomNumber]
+            document.getElementById("input").value +="you :" + question
+            document.getElementById("output").value +="chatbot: " + sortedOutput[randomNumber]
         }
     
     } else {
