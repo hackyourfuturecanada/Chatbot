@@ -2,23 +2,15 @@ console.log("he");
 // Input and output contents declared
 const chatbotIO = [
     {
-        input : "hello",
+        input :  ['hello', 'hi', 'greetings'],
         output : ["Hello", "Hi", "Hey"]
     },
     {
-        input : "hi",
-        output : ["Hello", "Hi", "Hey"]
-    },
-    {
-        input : "hey",
-        output : ["Hello", "Hi", "Hey"]
-    },
-    {
-        input  : "what is your favourite color?",
+        input  : ['what is your favourite colour?', 'who is your favourite HYF instructor?', 'who is your role model?'],
         output : ["I am not sure", "I like every color", "Orange"]
     },
     {
-        input : "how are you?",
+        input : ['how are you?', 'how is the weather today?', 'how is canada doing in the olympics?'],
         output : ["Great", "Cool", "Good"]
     }]
 
@@ -37,7 +29,11 @@ const chatbotIO = [
 function reply(radioButton){
     const questionValue = document.querySelector("#input").value;
     // i checked that if array input value is equal to our input value 
-    const filterIO = chatbotIO.filter(io => { return questionValue.toLowerCase() === io.input; })
+    const filterIO = chatbotIO.filter(ios => { 
+        console.log("ios", ios.input);
+        return ios.input.includes(questionValue.toLowerCase()); 
+    })
+    console.log("filterIO",filterIO);
     // response minumum 1 object if input type is inside the array. After i call pushContent() function which button clicked.
     if(filterIO.length === 1){
             if(radioButton === "longest"){
