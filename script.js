@@ -1,65 +1,81 @@
 //object containing inputs and outputs arrays
 let chatInputsOutputs = [
   {
-    inputs: 'Hello',
+    inputs: ['Hello', 'Hi', 'Greetings'],
     outputs: ['Hello', 'Hey', 'Greetings'],
   },
   {
-    inputs: 'What is your favourite colour?',
-    outputs: ['I am not sure.', 'White', 'Blue'],
+    inputs: [
+      'What is your favourite colour?',
+      'Who is your favourite HYF instructor?',
+      'Who is your role model?',
+    ],
+    outputs: [
+      'I am not sure.',
+      'There are too many to choose from.',
+      'I like everyone.',
+    ],
   },
   {
-    inputs: 'How are you?',
-    outputs: ['Great!', 'Not bad', 'Good'],
+    inputs: [
+      'How are you?',
+      'How is the weather today?',
+      'How is Canada doing in the Olympics?',
+    ],
+    outputs: ['Fine', 'Great', 'Not so good'],
   },
 ];
-let randomNumber = Math.floor(Math.random() * 3);
+
+const randomNuberGenerator = () => Math.floor(Math.random() * 3);
 
 console.log(chatInputsOutputs);
 
 const answerRandom = item => {
-  item[0].outputs[randomNumber];
+  return item[0].outputs[randomNuberGenerator()];
 };
 const answerShortest = item => {
-  item[0].outputs.reduce((a, b) => (a.length < b.length ? a : b));
+  return item[0].outputs.reduce((a, b) => (a.length < b.length ? a : b));
 };
 const answerLongest = item => {
-  item[0].outputs.reduce((a, b) => (a.length > b.length ? a : b));
+  return item[0].outputs.reduce((a, b) => (a.length > b.length ? a : b));
 };
 
+// reply function
 const reply = selectedAnswer => {
-  let question = document.getElementById('input').value.toLowerCase();
-  let filterType = null;
+  let question = document.getElementById('input').value;
 
   console.log(question);
 
-  const filteredObject = chatInputsOutputs.filter(
-    item => question === item.inputs.toLowerCase(),
-  );
-  console.log(filteredObject);
+  document.getElementById('output').value +=
+    'You: ' + document.getElementById('input').value + '\n';
 
-  //   document.getElementById('output').value =
-  //     chatInputsOutputs.outputs[indexOfQuestion];
+  const filteredObject = chatInputsOutputs.filter(item => {
+    return item.inputs
+      .map(item => item.toLowerCase())
+      .includes(question.toLowerCase());
+  });
 
-  console.log(answerShortest(filteredObject));
-  console.log(answerLongest(filteredObject));
-  console.log(answerRandom(filteredObject));
+  console.log('filteredobject', filteredObject);
 
   if (filteredObject.length === 1) {
     if (selectedAnswer === 1) {
-      document.getElementById('output').value = answerShortest(filteredObject);
+      document.getElementById('output').value +=
+        'Computer: ' + answerLongest(filteredObject) + '\n\n';
     } else if (selectedAnswer === 2) {
-      document.getElementById('output').value = answerShortest(filteredObject);
+      document.getElementById('output').value +=
+        'Computer: ' + answerShortest(filteredObject) + '\n\n';
     } else {
-      document.getElementById('output').value = answerRandom(filteredObject);
+      document.getElementById('output').value +=
+        'Computer: ' + answerRandom(filteredObject) + '\n\n';
     }
   } else {
     //when the input is not recognized
-    document.getElementById('output').value =
-      "I don't understand that command. Please enter another.";
+    document.getElementById('output').value +=
+      "Computer: I don't understand that command. Please enter another. \n\n";
   }
 };
 
+// Event listener of submit button
 document.getElementById('submit').addEventListener('click', function() {
   let option = 0;
   if (document.getElementById('longest').checked) {
