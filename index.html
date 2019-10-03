@@ -1,31 +1,43 @@
 <!DOCTYPE HTML>
 <head>
   <title>My First Chatbot</title>
-  <link rel="stylesheet" type="text/css" href="chatbot_style.css">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <script type="text/javascript" src="js/script.js" defer></script>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 </head>
 
 <body>
+
+  <div id="show-content" class="hide">
+    <div class="close">
+      <i class="fas fa-window-close fa-4x"></i>
+    </div>
+    <img src="https://images.dog.ceo/breeds/hound-basset/n02088238_517.jpg">
+  </div>
+
   <div id="demo">
 
       <h1> My first chatbot! </h1>
       <h3> Talk to your bot!</h3>
-      
-      <div id="user">
-        <input id="input" type="text" placeholder="Say something" />
-        <button id="submit">Submit</button>
 
-        <input type="radio" name="filterType" class="filterType" id="random" value="Random" checked> Random
-        <input type="radio" name="filterType" class="filterType" id="shortest" value="Shortest Answer"> Shortest Answer
-        <input type="radio" name="filterType" class="filterType" id="longest" value="Longest Answer"> Longest Answer
+      <div id="user">
+        <form id="chatbot-form">
+          <input id="input" type="text" placeholder="Say something" />
+          <button id="submit">Submit</button>
+
+          <input type="radio" name="filterType" class="filterType" id="random" value="Random" checked> Random
+          <input type="radio" name="filterType" class="filterType" id="shortest" value="Shortest Answer"> Shortest Answer
+          <input type="radio" name="filterType" class="filterType" id="longest" value="Longest Answer"> Longest Answer
+        </form>
       </div>
-      
+
       <br />
 
       <h3> Chat history </h3>
       <div id="chatBot">
           <textarea id="output" name="ChatHistory" rows="15"></textarea>
           <br />
-      </div>  
+      </div>
 
   </div>
 </body>
