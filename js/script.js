@@ -13,8 +13,17 @@ const chatbot = [
         input:  ['what is your favourite colour?', 'who is your favourite HYF instructor?', 'who is your role model?'],
         output: ['i am not sure', 'i have so many favorites it\'s hard to choose one.', 'i like every one']
     },
+    {
+        input: ['show me a dog'],
+        output: [showMeADog]
+    },
+    {
+        input: ['set an alarm'],
+        output: [delayedAlert]
+    }
 
 ];
+
 
 
 function reply() {
@@ -39,17 +48,24 @@ function reply() {
             sOutput = output[0].output.sort((a, b) => a.length - b.length );
             appendToOutput(sOutput[0], 1);
         }else{
-            appendToOutput(output[0].output[randomNumber], 1);
+            //check if the output array has more than value,, if yes get a random one else git the first one
+            (output[0]['output'].length > 1)? appendToOutput(output[0].output[randomNumber], 1):appendToOutput(output[0].output[0], 1);
         }
-
     }else{
-        //if not found appen this msg to the textarea
+        //if the question not found in out dataDase show this msg to the user
         appendToOutput("I don't understand that command. Please enter another.",1);
     }
 }
 
 //this function to add a new message to the top of the textarea
 function appendToOutput(msg, sender) {
+    if (typeof msg == 'function') {
+        msg();//call the function ,, which got from the output
+
+        //add an answer on the chat history
+        appendToOutput("With pleasure", 1)
+        return false;
+    }
     //who send the msg ? bot or user(you)
     sender = (sender) ? 'ChatBot':'You';
     let newLine = (sender === 'ChatBot')? '\n':'\n\n';
@@ -58,10 +74,43 @@ function appendToOutput(msg, sender) {
 }
 
 
+//event listener to close the image when click on x
+document.querySelector('.close').addEventListener('click', function(e) {
+    document.getElementById('show-content').classList.add('hide');
+});
+
 //when the form submited do this >>> ,, i have already changed the type of button to submit , so each click of the button will submit the form
 document.getElementById('chatbot-form').addEventListener('submit', function(e) {
     e.preventDefault();
     reply();
     document.getElementById('chatbot-form').reset();
-})
+});
+
+
+//function to get a dog image from API and show it on the HTML page
+function showMeADog(){
+    //get a dog image from API
+    let image = new XMLHttpRequest();
+    image.onreadystatechange = function(){
+        if(image.readyState == 4){
+            //change the returned data from API to Object, and get the url from .message
+            let url = JSON.parse(image.responseText).message;
+            //change img attr -src- to the url from API
+            document.querySelector('#show-content img').setAttribute('src', url);
+            //remove the class hide from the element to show the image
+            document.getElementById('show-content').classList.remove('hide');
+        }
+    }
+    //the url for API ,, and then send the request
+    image.open('GET', 'https://dog.ceo/api/breeds/image/random', true);
+    image.send();
+}
+
+function delayedAlert(){
+    setTimeout(function(){
+        alert("Did you forget about me? it's your friend, the Alarm!")
+    }, 2000);
+}
+
+
 

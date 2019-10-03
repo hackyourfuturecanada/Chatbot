@@ -13,6 +13,7 @@ body {
     color: #333;
     background-color: #efefef;
     font: 13px helvetica, arial, freesans, clean, sans-serif;
+    margin: 0px;
 }
 
 #demo {
@@ -28,6 +29,7 @@ body {
     line-height: 1.4em;
     font: 13px helvetica, arial, freesans, clean, sans-serif;
     color: black;
+    margin-top: 80px;
 }
 
 #demo #input {
@@ -50,4 +52,61 @@ input:focus {
 
 textarea:focus {
     outline: none;
+}
+
+
+
+/*#show-content{
+    background-color: rgba(0, 0, 0, 0.4);
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0px;
+    left:0px;
+}*/
+
+#show-content{
+    position: absolute;
+    width: 80%;
+    max-width: 80%;
+    height: auto;
+    z-index: 1;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 0 10%;
+    padding-bottom: 100px;
+
+}
+
+#show-content:before {
+    content: " ";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: -1;
+    border-radius: 15px;
+    box-shadow: 0 0 10px black;
+
+}
+
+#show-content .close{
+    text-align: right;
+    cursor: pointer;
+    position: relative;
+    align-self: flex-end;
+    right: 10px;
+    top: 10px;
+
+}
+
+#show-content img{
+    max-width: 70%;
+    max-height: 70%;
+}
+.hide{
+    display: none !important;
 }
