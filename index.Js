@@ -1,3 +1,26 @@
+// I declare a function to get the information from API
+function showMedog(){
+var chat = new XMLHttpRequest();
+chat.onreadystatechange = function() {
+   if (chat.readyState == XMLHttpRequest.DONE) {
+
+   		let data = JSON.parse(chat.responseText);
+   		console.log(data);
+
+
+      document.getElementById('image').setAttribute('src', data.message);
+    }
+}
+    chat.open('GET', 'https://dog.ceo/api/breeds/image/random', true);
+    chat.send();
+
+}
+
+// I declare function to use it for the alert
+function delayedAlert(){
+setTimeout(function(){alert("Did you forget about me? It is your friend, the Alarm!")}, 2000);
+
+}
 
 //here we are going to define and declare object and inside the object I define two arrays
 const object = [
@@ -25,11 +48,13 @@ const object = [
     let filterType = null;
 
 //let answer = object.filter((item) => item.input.includes(question));
+
     let answer = object.filter(function(item){
       //if(item.input === question){
+
       if(item.input.includes(question)){
         return true;
-      }
+    }
     });
 
      if(answer.length > 0){
@@ -45,8 +70,20 @@ const object = [
        }else if(document.getElementById('random').checked){
           document.getElementById('output').textContent = answer[0].output[randomNumber] + '\n' + document.getElementById('output').textContent;
        }
-     }else{
+     }
+     // Imn this step i add if statement inside the excisting else in order to do the action when we type "Show mw a dog"
+     else{
+       if(question === "Show me a dog"){
+         showMedog();
+       }
+    // Imn this step i add if statement inside the excisting else in order to do the action when we type "set an alarm"
+
+       else if (question === "Set an alarm") {
+         delayedAlert();
+       }
+       else{
        document.getElementById('output').textContent = "I don't understand that command. Please enter another";
+     }
      }
    }
 
