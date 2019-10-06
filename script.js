@@ -12,7 +12,7 @@ const chatbot = [
         input:  ['how are you?', 'how is the weather today?', 'how is Canada doing in the Olympics?'],
         output: ['Fine', 'Great', 'Not so good']
     },
- 
+    
 ];
 
 
@@ -44,32 +44,43 @@ function reply() {
 //if our array has any value of input it will return below condition else will give a massage
     if(answer.length>0){
 
-            //for shortest answer
-        if(shortest.checked === true){
+                    if(shortest.checked === true){//for shortest answer
+                            document.getElementById("output").value +="you :  "+question+ '\n';
+                            document.getElementById("output").value +="bot :  "+ answer[0].output.sort((a, b) => a.length - b.length)[0]+ '\n' +'\n';
 
-            document.getElementById("output").value +="you :  "+question+ '\n';
+                    }else if (longest.checked === true){//for longest answer
+                        document.getElementById("output").value +="you :  "+question+ '\n';
+                        document.getElementById("output").value +="bot :  "+answer[0].output.sort((a, b) => b.length - a.length)[answer.length-1]+ '\n' +'\n';
+                                             
+                    }else { //for random answer
+                        document.getElementById("output").value +="you :  "+question+ '\n';
+                        document.getElementById("output").value += "bot :  "+ answer[0].output.sort((a, b) => b.length - a.length)[randomNumber]+ '\n' + '\n';
+                    }
+
+        }else if (question.includes("dog")){//if input includes dog below function will work
             
-            document.getElementById("output").value +="bot :  "+ answer[0].output.sort((a, b) => a.length - b.length)[0]+ '\n' +'\n';
+                let image = new XMLHttpRequest(); //gives info from APIs
+                image.onreadystatechange=function(){ // defines a function to be executed when the readyState changes.
+                    if(image.readyState===4){//holds the status of the XMLHttpRequest.
+                        let url= JSON.parse(image.responseText).message;//parsing data turning to object
+                        document.getElementById("img2").setAttribute('src', url);//adding new src to img
+                    }
+                }        
+                image.open("GET", "https://dog.ceo/api/breeds/image/random"); //url for data
+                image.send();//sends request
+            
+        } else if (question.includes("alarm")){//if input includes dog below function will work
+                    function delayedAlert(){ 
+                    setTimeout(function(){//setting time dunction
+                        alert("Did you forget about me? it's your friend, the Alarm!")// alert will appear in 2 sec
+                    }, 2000);
+            }
+            delayedAlert();//callling fucntion when input 
 
-            //for longest answer
-        }else if (longest.checked === true){
-          
-          
-            document.getElementById("output").value +="you :  "+question+ '\n';
-          
-            document.getElementById("output").value +="bot :  "+answer[0].output.sort((a, b) => b.length - a.length)[answer.length-1]+ '\n' +'\n';
-      
-            //for random answer      
-        }else {
-          
-          
-            document.getElementById("output").value +="you :  "+question+ '\n';
-            document.getElementById("output").value += "bot :  "+ answer[0].output.sort((a, b) => b.length - a.length)[randomNumber]+ '\n' + '\n';
-        }
-
-    }else{
-        document.getElementById("output").value="I do not understand that comment. Please enter another."
-    }  
+        } else  {
+                document.getElementById("output").value +="you :  "+question+ '\n';
+                document.getElementById("output").value+="bot :  "+"I do not understand that comment. Please enter another."+'\n' +'\n';
+            }  
 }
 
 //attached a 'click' event listener to the <button> element defined in the HTML file.

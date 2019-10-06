@@ -51,3 +51,7 @@ input:focus {
 textarea:focus {
     outline: none;
 }
+
+#img2{
+    display: inline-grid;
+}
