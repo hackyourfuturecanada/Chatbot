@@ -38,10 +38,10 @@ body {
 }
 
 #demo textarea {
+    width: 100%;
     padding: 8px;
     font-size: 14px;
     border: 1px solid #ddd;
-    width: 800px;
 }
 
 input:focus {
@@ -50,4 +50,11 @@ input:focus {
 
 textarea:focus {
     outline: none;
+}
+
+#dog-image{
+    display: none;
+}
+.random-dog-image{
+    width: 500px;
 }
