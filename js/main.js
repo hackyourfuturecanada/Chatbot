@@ -1,6 +1,6 @@
 /*
 Aziz Omar
-Chatbot2
+Chatbot4
 */
 // contains all inputs and outputs
 let data = [{
