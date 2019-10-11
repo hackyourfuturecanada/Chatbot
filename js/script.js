@@ -20,6 +20,10 @@ const chatbot = [
     {
         input: ['set an alarm'],
         output: [delayedAlert]
+    },
+    {
+        input: ['show me the weather'],
+        output: [showMeWeather]
     }
 
 ];
@@ -73,12 +77,6 @@ function appendToOutput(msg, sender) {
     document.getElementById('output').textContent = sender + ' : ' + msg + newLine + document.getElementById('output').textContent;
 }
 
-
-//event listener to close the image when click on x
-document.querySelector('.close').addEventListener('click', function(e) {
-    document.getElementById('show-content').classList.add('hide');
-});
-
 //when the form submited do this >>> ,, i have already changed the type of button to submit , so each click of the button will submit the form
 document.getElementById('chatbot-form').addEventListener('submit', function(e) {
     e.preventDefault();
@@ -95,10 +93,10 @@ function showMeADog(){
         if(image.readyState == 4){
             //change the returned data from API to Object, and get the url from .message
             let url = JSON.parse(image.responseText).message;
-            //change img attr -src- to the url from API
-            document.querySelector('#show-content img').setAttribute('src', url);
-            //remove the class hide from the element to show the image
-            document.getElementById('show-content').classList.remove('hide');
+
+            Swal.fire({
+              imageUrl: url,
+            })
         }
     }
     //the url for API ,, and then send the request
@@ -111,6 +109,48 @@ function delayedAlert(){
         alert("Did you forget about me? it's your friend, the Alarm!")
     }, 2000);
 }
+
+async function showMeWeather() {
+    //i did it here with async await with XMLHttpRequest
+    // let weather =  new XMLHttpRequest();
+    // await weather.open('GET', 'http://api.openweathermap.org/data/2.5/forecast?q=TORONTO,CA&APPID=1fa7aca95de2f89319fa141b4476eebb', false);
+    // await weather.send();
+    // let data = JSON.parse(weather.responseText).list[0];
+    // console.log(data)
+
+    //here with fetch
+    // fetch('http://api.openweathermap.org/data/2.5/forecast?q=TORONTO,CA&APPID=1fa7aca95de2f89319fa141b4476eebb')
+    // .then(function(response) {
+    //     return response.json();
+    // })
+    // .then(function(data) {
+    //     let data =  data.list[0];
+    // });
+
+    // and here with async await and fetch
+    try {
+        let response = await fetch('http://api.openweathermap.org/data/2.5/forecast?q=TORONTO,CA&units=metric&APPID=1fa7aca95de2f89319fa141b4476eebb');
+        let data = await response.json();
+        data = data.list[0];
+
+        //show wither using sweetAletr2
+        Swal.fire({
+          imageUrl: `http://openweathermap.org/img/wn/${data['weather'][0]['icon']}@2x.png`,
+          html:
+            `<b>Current weather for Toronto</b> <br> ` +
+            `<span class="weather">${data['main']['temp']}</span> <br>` +
+            `Min. ${data['main']['temp_min']} - Max. ${data['main']['temp_max']}  <br>` +
+            `Weather : ${data['weather'][0]['main']} <br>` +
+            `Description :  ${data['weather'][0]['description']}<br>` +
+            `Humidity :  ${data['main']['humidity']} <br>`
+        });
+    }catch(error){
+        appendToOutput(error, 1)
+    }
+
+}
+
+
 
 
 
