@@ -1,4 +1,6 @@
 let dogEndpoint = 'https://dog.ceo/api/breeds/image/random';
+let WEATHER_ENDPOINT =
+  'http://api.openweathermap.org/data/2.5/forecast?q=Toronto,CA&APPID=6a14d9cbcff440def9a99187b16f3a5d';
 let history = [];
 let h_input = document.getElementById('input');
 let h_output = document.getElementById('output');
@@ -31,13 +33,13 @@ let chatInputsOutputs = [
   },
 ];
 
-const randomNuberGenerator = () => Math.floor(Math.random() * 3);
+const randomNumberGenerator = () => Math.floor(Math.random() * 3);
 
 console.log(chatInputsOutputs);
 
 //answer based on the option selected in the radio button
 const answerRandom = item => {
-  return item[0].outputs[randomNuberGenerator()];
+  return item[0].outputs[randomNumberGenerator()];
 };
 
 const answerShortest = item => {
@@ -49,9 +51,8 @@ const answerLongest = item => {
 };
 
 // reply function
-const reply = selectedAnswer => {
+async function reply(selectedAnswer) {
   let question = h_input.value;
-  let dogLink = '';
   console.log(question);
 
   history.push('You: ' + question + '\n');
@@ -67,24 +68,11 @@ const reply = selectedAnswer => {
   if (question.toLowerCase().includes('dog')) {
     console.log('if dog question');
     getPhotos();
-
-    // const assignDogLink = () => {
-    //   return ;
-    // };
-
-    // function getPhoto(aa, assignDogLink) {
-    //   dogLink = assignDogLink();
-    // }
-
-    // getPhoto(function() {
-    //   console.log('before doglink assigned');
-    //   dogLink = assignDogLink();
-    //   console.log('+++++++++++', dogLink);
-    // });
-
-    // getPhoto('', assignDogLink);
   } else if (question.toLowerCase().includes('alarm')) {
     setAlarm();
+  } else if (question.toLowerCase().includes('weather')) {
+    console.log('weather is asked');
+    getWeather();
   } else if (filteredObject.length === 1) {
     if (selectedAnswer === 1) {
       history.push('Computer: ' + answerLongest(filteredObject) + '\n\n');
@@ -94,12 +82,11 @@ const reply = selectedAnswer => {
       history.push('Computer: ' + answerRandom(filteredObject) + '\n\n');
     }
   } else {
-    //when the input is not recognized
     history.push(
       "Computer: I don't understand that command. Please enter another. \n\n",
     );
   }
-};
+}
 
 function setAlarm() {
   setTimeout(function() {
@@ -129,14 +116,9 @@ function getPhotos() {
   let ERROR_MESSAGE = 'Something bad happened!';
   let data = '';
   let message = '';
-  console.log('/////////', 'getPhotos');
 
   xhr.onreadystatechange = function() {
-    console.log('aaaaaa', 'onreadystate');
-
     if (xhr.readyState == XMLHttpRequest.DONE) {
-      console.log('/////////', 'DONE');
-
       data = JSON.parse(xhr.response);
       console.log(data);
       message = data.message;
@@ -145,7 +127,6 @@ function getPhotos() {
       history.push(message);
       outputPrinter(history);
     } else {
-      console.log('===========', 'else');
       message = ERROR_MESSAGE;
     }
   };
@@ -156,6 +137,29 @@ function getPhotos() {
   return message;
 }
 
+async function getWeather() {
+  let rawData = await fetch(WEATHER_ENDPOINT);
+  console.log('rawData', rawData);
+
+  let jsonData = await rawData.json();
+  console.log('jsonData', jsonData);
+
+  let message = 'Computer: The weather in Toronto for the date: ';
+
+  console.log('output data is here =====> ', jsonData);
+  let date = new Date(jsonData.list[0].dt_txt);
+  message += date.toLocaleString();
+  message += ' is ';
+  message += Math.round(jsonData.list[0].main.temp - 273.15);
+  message += ' Centigrate degrees \n\n';
+
+  console.log('history: ', history);
+  console.log('message: ', message);
+
+  history.push(message);
+  outputPrinter(history);
+}
+
 const outputPrinter = history => {
   let outputToPrint = '';
   let historyWithLink = history.map(item => {
@@ -164,11 +168,12 @@ const outputPrinter = history => {
       let linkA = `<img src= '${item}' width="500" height="600"> 
         <br></br>`;
       document.getElementById('dog').innerHTML = linkA;
-      return `Computer: How is this dog? \n\n `;
+      return `Computer: This one is my favourite? \n\n`;
+    } else if (item.substring(0, 5) === 'wthr ') {
+      return `Computer: The Weather for ? \n\n`;
     }
     return item;
   });
   historyWithLink.forEach(item => (outputToPrint += item));
-
   h_output.innerHTML = outputToPrint;
 };
