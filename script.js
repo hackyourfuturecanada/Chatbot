@@ -15,25 +15,15 @@ const chatbot = [
     
 ];
 
-
-//print variable
-console.log(chatbot)
-
 //created a function called ‘reply’.
 function reply() {
   
-//input selected, assigned a variable and turned to lowercase
-    let question = document.getElementById("input").value.toLowerCase();
+    let question = document.getElementById("input").value.toLowerCase();//input selected, assigned a variable and turned to lowercase
+ 
+    const answer = chatbot.filter( item => item.input.includes(question))//filter was used to return object which s inside the array  
 
-    
-
-  //filter was used to return object which s inside the array  
-    const answer = chatbot.filter( item => item.input.includes(question))
-
-//created random number between 0 and 2
-    let randomNumber = Math.floor(Math.random()*3);
+    let randomNumber = Math.floor(Math.random()*3);//created random number between 0 and 2
    
-    
 //each radio button id assigned to a variable
     let random =document.getElementById('random')
     let shortest =document.getElementById('shortest')
@@ -45,8 +35,8 @@ function reply() {
     if(answer.length>0){
 
                     if(shortest.checked === true){//for shortest answer
-                            document.getElementById("output").value +="you :  "+question+ '\n';
-                            document.getElementById("output").value +="bot :  "+ answer[0].output.sort((a, b) => a.length - b.length)[0]+ '\n' +'\n';
+                        document.getElementById("output").value +="you :  "+question+ '\n';
+                        document.getElementById("output").value +="bot :  "+ answer[0].output.sort((a, b) => a.length - b.length)[0]+ '\n' +'\n';
 
                     }else if (longest.checked === true){//for longest answer
                         document.getElementById("output").value +="you :  "+question+ '\n';
@@ -69,7 +59,19 @@ function reply() {
                 image.open("GET", "https://dog.ceo/api/breeds/image/random"); //url for data
                 image.send();//sends request
             
-        } else if (question.includes("alarm")){//if input includes dog below function will work
+        }else if (question.includes("weather")){
+
+            async function getWeather(url){
+                let newdata = await fetch(url);
+                let info = await newdata.json();
+                return info;
+             }getWeather("http://api.openweathermap.org/data/2.5/weather?q=Toronto&APPID=39535c6bc9ca9dc8a086acf0aec66d18")
+            .then( temp=>{ 
+                document.getElementById("output").value +="you :  "+question+ '\n';
+                document.getElementById("output").value +="bot :  "+"Toronto's temperature is :" + Math.round(temp.main.temp-275.15)  + '\n' + '\n';;
+            });
+
+    } else if (question.includes("alarm")){//if input includes dog below function will work
                     function delayedAlert(){ 
                     setTimeout(function(){//setting time dunction
                         alert("Did you forget about me? it's your friend, the Alarm!")// alert will appear in 2 sec
@@ -84,4 +86,4 @@ function reply() {
 }
 
 //attached a 'click' event listener to the <button> element defined in the HTML file.
-document.getElementById("submit").addEventListener("click", function() {reply()});
+document.getElementById("submit").addEventListener("click", reply);
