@@ -66,24 +66,25 @@ const reply = selectedAnswer => {
 
   if (question.toLowerCase().includes('dog')) {
     console.log('if dog question');
+    getPhotos();
 
-    const assignDogLink = () => {
-      return getPhotos();
-    };
+    // const assignDogLink = () => {
+    //   return ;
+    // };
 
-    function getPhoto(aa, assignDogLink) {
-      dogLink = assignDogLink();
-    }
+    // function getPhoto(aa, assignDogLink) {
+    //   dogLink = assignDogLink();
+    // }
 
-    getPhoto(assignDogLink, function() {
-      console.log('before doglink assigned');
-      dogLink = assignDogLink();
-      console.log('+++++++++++', dogLink);
-    });
+    // getPhoto(function() {
+    //   console.log('before doglink assigned');
+    //   dogLink = assignDogLink();
+    //   console.log('+++++++++++', dogLink);
+    // });
 
     // getPhoto('', assignDogLink);
   } else if (question.toLowerCase().includes('alarm')) {
-    setAlarm('', delayedAlert());
+    setAlarm();
   } else if (filteredObject.length === 1) {
     if (selectedAnswer === 1) {
       history.push('Computer: ' + answerLongest(filteredObject) + '\n\n');
@@ -100,13 +101,13 @@ const reply = selectedAnswer => {
   }
 };
 
-function delayedAlert() {
-  alert('Did you forget about me? It’s your friend, the Alarm!');
-}
-
-function setAlarm(query, callback) {
+function setAlarm() {
   setTimeout(function() {
-    callback();
+    history.push(
+      'Computer: Did you forget about me? It’s your friend, the Alarm! \n\n',
+    );
+    outputPrinter(history);
+    alert('Did you forget about me? It’s your friend, the Alarm!');
   }, 2000);
 }
 
@@ -131,17 +132,20 @@ function getPhotos() {
   console.log('/////////', 'getPhotos');
 
   xhr.onreadystatechange = function() {
-    console.log('/////////', 'onreadystate');
+    console.log('aaaaaa', 'onreadystate');
 
     if (xhr.readyState == XMLHttpRequest.DONE) {
-      console.log('/////////', 'true');
+      console.log('/////////', 'DONE');
 
       data = JSON.parse(xhr.response);
       console.log(data);
       message = data.message;
+      console.log('history: ', history);
+      console.log('message: ', message);
+      history.push(message);
+      outputPrinter(history);
     } else {
-      console.log('/////////', 'else');
-
+      console.log('===========', 'else');
       message = ERROR_MESSAGE;
     }
   };
@@ -154,21 +158,17 @@ function getPhotos() {
 
 const outputPrinter = history => {
   let outputToPrint = '';
-  history.map(item => {
+  let historyWithLink = history.map(item => {
+    console.log('item: --- ', item);
     if (item.substring(0, 6) === 'https:') {
-      console.log(
-        '======== a valid url',
-        '<img src="' + item + '" width="500" height="600"> <br></br>',
-      );
-      return (
-        '<div>Computer:</div><img src="' +
-        item +
-        '" width="500" height="600"> <br></br>'
-      );
+      let linkA = `<img src= '${item}' width="500" height="600"> 
+        <br></br>`;
+      document.getElementById('dog').innerHTML = linkA;
+      return `Computer: How is this dog? \n\n `;
     }
+    return item;
   });
-
-  history.forEach(item => (outputToPrint += item));
+  historyWithLink.forEach(item => (outputToPrint += item));
 
   h_output.innerHTML = outputToPrint;
 };
