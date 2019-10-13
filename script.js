@@ -112,3 +112,5 @@ return data;
 fetchAsync()
     .then(data => console.log(data))
     .catch(reason => console.log(reason.message))
+
+    //
