@@ -1,33 +1,37 @@
-<!DOCTYPE HTML>
-<head>
-  <title>My First Chatbot</title>
-  <link rel="stylesheet" type="text/css" href="chatbot_style.css">
-</head>
-
-<body>
-  <div id="demo">
-
-      <h1> My first chatbot! </h1>
-      <h3> Talk to your bot!</h3>
-      
-      <div id="user">
-        <input id="input" type="text" placeholder="Say something" />
-        <button id="submit">Submit</button>
-
-        <input type="radio" name="filterType" class="filterType" id="random" value="Random" checked> Random
-        <input type="radio" name="filterType" class="filterType" id="shortest" value="Shortest Answer"> Shortest Answer
-        <input type="radio" name="filterType" class="filterType" id="longest" value="Longest Answer"> Longest Answer
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>My First Chatbot</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script type="text/javascript" src="script.js" defer></script>
+  </head>
+  <body>
+    <div id="show-content" class="hide">
+      <div class="close">
+        <i class="fas fa-window-close fa-4x"></i>
       </div>
-      
-      <br />
+      <img src="https://images.dog.ceo/breeds/hound-basset/n02088238_517.jpg">
+    </div>
+    <div id="demo">
+        <h1> My first chatbot! </h1>
+        <h3> Talk to your bot!</h3>
+        <div id="user">
+          <form id="chatbot-form">
+            <input id="user-input" type="text" placeholder="Say something" />
+            <button id="submit">Submit</button>
+            <input type="radio" name="filterType" class="filter-type" id="random" value="Random" checked> Random
+            <input type="radio" name="filterType" class="filter-type" id="shortest" value="Shortest Answer"> Shortest Answer
+            <input type="radio" name="filterType" class="filter-type" id="longest" value="Longest Answer"> Longest Answer
+          </form>
+        </div>
+        <br />
 
-      <h3> Chat history </h3>
-      <div id="chatBot">
-          <textarea id="output" name="ChatHistory" rows="15"></textarea>
-          <br />
-      </div>  
+        <h3> Chat history </h3>
+        <div id="chat-bot">
+            <textarea id="output" name="ChatHistory" rows="15"></textarea>
+            <br />
+        </div>
 
-  </div>
-</body>
-
+    </div>
+  </body>
 </html>

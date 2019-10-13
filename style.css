@@ -1,0 +1,101 @@
+button {
+    font-family: Helvetica;
+    font-size: 10pt;
+    /*width: 92px;*/
+}
+
+textarea {
+    font-family: arial;
+    font-size: 10pt;
+}
+
+body {
+    color: #333;
+    background-color: #efefef;
+    font: 13px helvetica, arial, freesans, clean, sans-serif;
+    margin: 0px;
+}
+
+#demo {
+    width: 80%;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px;
+
+    background-color: #F8F8F8;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px #999;
+    line-height: 1.4em;
+    font: 13px helvetica, arial, freesans, clean, sans-serif;
+    color: black;
+    margin-top: 80px;
+}
+
+#demo #input {
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    width: 400px;
+}
+
+#demo textarea {
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    width: 800px;
+}
+
+input:focus {
+    outline: none;
+}
+
+textarea:focus {
+    outline: none;
+}
+
+#show-content{
+    position: absolute;
+    width: 80%;
+    max-width: 80%;
+    height: auto;
+    z-index: 1;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 0 10%;
+    padding-bottom: 100px;
+
+}
+
+#show-content:before {
+    content: " ";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: -1;
+    border-radius: 15px;
+    box-shadow: 0 0 10px black;
+
+}
+
+#show-content .close{
+    text-align: right;
+    cursor: pointer;
+    position: relative;
+    align-self: flex-end;
+    right: 10px;
+    top: 10px;
+
+}
+
+#show-content img{
+    max-width: 70%;
+    max-height: 70%;
+}
+.hide{
+    display: none !important;
+}
