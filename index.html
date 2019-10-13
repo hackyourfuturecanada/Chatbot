@@ -1,7 +1,8 @@
 <!DOCTYPE HTML>
 <head>
   <title>My First Chatbot</title>
-  <link rel="stylesheet" type="text/css" href="chatbot_style.css">
+  <link rel="stylesheet" type="text/css" href="./styles/chatbot_style.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
 <body>
@@ -13,13 +14,17 @@
       <div id="user">
         <input id="input" type="text" placeholder="Say something" />
         <button id="submit">Submit</button>
-
-        <input type="radio" name="filterType" class="filterType" id="random" value="Random" checked> Random
-        <input type="radio" name="filterType" class="filterType" id="shortest" value="Shortest Answer"> Shortest Answer
+        <hr />
+        <input type="radio" name="filterType" class="filterType" id="shortest" value="Shortest Answer" checked> Shortest Answer
         <input type="radio" name="filterType" class="filterType" id="longest" value="Longest Answer"> Longest Answer
+        <input type="radio" name="filterType" class="filterType" id="random" value="Random"> Random
+
       </div>
-      
-      <br />
+      <hr />
+      <div id="dog-image">
+        <img class="random-dog-image" src="" alt="dog image" />
+      </div>
+      <hr />
 
       <h3> Chat history </h3>
       <div id="chatBot">
@@ -28,6 +33,7 @@
       </div>  
 
   </div>
+  <script type="text/javascript" src="scripts/app.js" defer></script>
 </body>
 
 </html>
