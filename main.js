@@ -31,13 +31,13 @@ let chatInputsOutputs = [
   },
 ];
 
-const randomNuberGenerator = () => Math.floor(Math.random() * 3);
+const randomNumberGenerator = () => Math.floor(Math.random() * 3);
 
 console.log(chatInputsOutputs);
 
 //answer based on the option selected in the radio button
 const answerRandom = item => {
-  return item[0].outputs[randomNuberGenerator()];
+  return item[0].outputs[randomNumberGenerator()];
 };
 
 const answerShortest = item => {
@@ -51,7 +51,6 @@ const answerLongest = item => {
 // reply function
 const reply = selectedAnswer => {
   let question = h_input.value;
-  let dogLink = '';
   console.log(question);
 
   history.push('You: ' + question + '\n');
@@ -67,22 +66,6 @@ const reply = selectedAnswer => {
   if (question.toLowerCase().includes('dog')) {
     console.log('if dog question');
     getPhotos();
-
-    // const assignDogLink = () => {
-    //   return ;
-    // };
-
-    // function getPhoto(aa, assignDogLink) {
-    //   dogLink = assignDogLink();
-    // }
-
-    // getPhoto(function() {
-    //   console.log('before doglink assigned');
-    //   dogLink = assignDogLink();
-    //   console.log('+++++++++++', dogLink);
-    // });
-
-    // getPhoto('', assignDogLink);
   } else if (question.toLowerCase().includes('alarm')) {
     setAlarm();
   } else if (filteredObject.length === 1) {
@@ -119,7 +102,6 @@ document.getElementById('submit').addEventListener('click', function() {
   } else if (document.getElementById('shortest').checked) {
     option = 2;
   }
-  console.log('submit clicked');
   reply(option);
   outputPrinter(history);
 });
@@ -145,7 +127,6 @@ function getPhotos() {
       history.push(message);
       outputPrinter(history);
     } else {
-      console.log('===========', 'else');
       message = ERROR_MESSAGE;
     }
   };
