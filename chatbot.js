@@ -1,55 +1,118 @@
+let bot = [{
+        input: ["hello!", "how are you?", "how is the weather today?"],
+        output: ["Hi", "I am good", "Fantastic?"]
+    },
+    {
+        input: ["what is your name?", "how old are you?", "What is your major?"],
+        output: ["Riham", "very old", "astronaut"]
+    },
+    {
+        input: ["where are you from?", "how many language do you speak?", "do you have pets?"],
+        output: [" From a planet called the earth", "four ", "no"]
+    },
+
+];
 
 
 
-let bot = [
-    { input: "Hello",
-        output:["Good morning" ,"Good evnning","Hello, how are you?"] },
-    { input: "what is your name",
-        output: ["not sure" ,"nothing","chatbot"]  },
-    { input: "How old are you",
-        output:["0" ,"very old","not sure"] },
-    
-    ]
-    
-/*Your reply function will now have the following:
-Declare a variable called ‘question’ and assign to it the value of the HTML <input> 
-element. HINT: you should already have this done from last week.*/
 let outputDom = document.getElementById("output");
- 
+
 function reply() {
-    var question = document.getElementById("input").value;
-    let randomNumber =  Math.floor(Math.random()*3);
+    let question = document.getElementById("input").value.toLowerCase();
+    let randomNumber = Math.floor(Math.random() * 3);
     let filterType = null;
-    
-    filterType =  bot.filter( item =>
-        item.input == question
-        );
+    filterType = bot.filter(element =>
+        element.input.includes(question)
+    );
 
-        if(filterType.length > 0){
-            let asnwers = filterType[0].output;
-            if(document.getElementById("shortest").checked==true){
-               outputDom.innerHTML = asnwers.sort()[0];
+    let asnwer = ""
 
-            }else if (document.getElementById("longest").checked==true){
-                outputDom.innerHTML = asnwers.sort()[asnwers.length-1];
+    if (filterType.length > 0) {
+        let asnwers = filterType[0].output;
 
-                    console.log("longest answer");
-            }else{
-                outputDom.innerHTML = asnwers[randomNumber];
-                    console.log("random answer");
+        if (document.getElementById("shortest").checked == true) {
+            asnwer = asnwers.sort()[0];
+        } else if (document.getElementById("longest").checked == true) {
+            answer = asnwers.sort()[asnwers.length - 1];
 
-            }
+        } else {
+            answer = asnwers[randomNumber];
         }
-    
-         
+    } else if(question == "show me a dog"){
 
-     else {
-        document.getElementById('output').innerHTML = "I don't understand that command";
+        showAdog();
+    } else if (question== "set an alarm"){
+        delayedAlert();
+    } else if (question== "show me the weather") {
 
+        showTheWeather();
     }
+
+    else {
+        answer = "I do not understand";
+    }
+
+    outputDom.innerHTML += `user: ${question}\nbot ${answer}\n`
 }
 
 
 document.getElementById("submit").addEventListener('click', reply);
 
-    
+function showAdog() {
+    let dogPics;
+    // create object of request 
+    let request = new XMLHttpRequest();
+    // type GET, and their linke 
+    request.open("GET", "https://dog.ceo/api/breeds/image/random", true);
+    // send rquest 
+    request.send();
+
+    request.onreadystatechange = dogFun;
+
+    function dogFun() {
+        console.log(this.responseText)
+        let response = this.responseText;
+        dogPics = response;
+
+        dogPics = JSON.parse(dogPics);
+
+        document.getElementById("img").src = dogPics.message;
+    }
+
+};
+
+function delayedAlert() {
+    setTimeout(function() {
+        alert("Did you forget about me? it's your friend, the Alarm!")
+    }, 3000);
+
+}
+
+// week12
+
+function showTheWeather(){
+
+let weather;
+
+let request2 = new XMLHttpRequest();
+
+request2.open("GET", "http://api.openweathermap.org/data/2.5/weather?lat=43.463237899999996&lon=-79.6972186&appid=484e47e5a69dfcd6d1d089e84051d0d5", true);
+
+request2.send();
+
+request2.onreadystatechange = weather2;
+
+function weather2() {
+  if (request2.readyState === 4 && request2.status === 200) {
+     let answer;
+    let response = this.responseText;
+    weather = response;
+    weather = JSON.parse(weather);
+    answer = `Temerture ${weather.main.temp} Pressure ${weather.main.pressure}, Humid ${weather.main.humidity}`;
+
+     outputDom.innerHTML += `user: show me the weather \nbot: ${answer}\n`;
+     
+    }
+}
+
+};
