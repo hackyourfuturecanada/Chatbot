@@ -15,7 +15,10 @@ const inOut = [{
     myOutput:dogPic }
   {
     myInput:"alert me",
-    myOutput: delayedAlert
+    myOutput: delayedAlert }
+  {
+    myInput:"show me the weather",
+    myOutpu: getWeather
   }
 ];
 
@@ -46,7 +49,14 @@ document.getElementById('submit').addEventListener('click', function() {
         textArea.innerHTML = long();
 }  else if (document.getElementById('random').checked) {
         textArea.innerHTML = returnRandom();
-} else {
+}  else if (question == "alert me"){
+        delayedAlert();
+} else if (question == "show me a dog") {
+
+        dogPic();
+} else if (question == "show me the weather"){
+        getWeather();
+}else if {
 document.getElementById('output').value =  "I don't understand that command."
   };
 
@@ -71,3 +81,20 @@ dogPic.onreadystatechange = function() {
 }
 dogPic.open('GET', 'https://dog.ceo/api/breeds/image/random', true);
 dogPic.send();
+
+
+function showWeather(){
+ city= 'Toronto';
+        api ='87f13ee1b6e2ec1dfd2751e046849da2';
+        getWeather(const data = "data";
+        .then(response => {
+            pushContent(questionValue,`Toronto weather today is ${get.weather[0].description}');
+        })
+        .catch(err=>console.log(err));
+        const info = "data";
+      };
+
+async function getWeather(site){
+   let get = await fetch(site);
+   let info = await get.json();
+   return info;
