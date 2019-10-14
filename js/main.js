@@ -135,10 +135,25 @@ function makeRequest(method, url) {
 */
 async function getWeather() {
   try {
-    //coo
-    let coordinates = await getCoordinates().catch(e => console.log('Error: ', e.message));
+    let userCoordinates;
+    let coordinates;
+    userCoordinates = await getCoordinates().catch(e => {
+      coordinates = {
+        "lat": 0,
+        "lon": 0
+      };
+      console.log('Error: ', e.message) alert(e.message);
+    });
+
+
+    if (!coordinates) {
+      coordinates = userCoordinates;
+    }
+
+
     let lat = coordinates.lat;
     let lon = coordinates.lon;
+
     let url = `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=e80c522abcec7f0f2549264809902922`;
     let response = await makeRequest("GET", url);
 
