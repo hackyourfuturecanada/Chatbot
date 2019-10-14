@@ -142,7 +142,8 @@ async function getWeather() {
         "lat": 0,
         "lon": 0
       };
-      console.log('Error: ', e.message) alert(e.message);
+      console.log('Error: ', e.message)
+      alert(e.message);
     });
 
 
