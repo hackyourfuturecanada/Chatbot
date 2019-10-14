@@ -1,0 +1,103 @@
+body {
+  background: #627076;
+
+  font-family: 'Open Sans', sans-serif;
+}
+
+main {
+
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  flex-direction: column;
+
+}
+
+input {
+  background: #e4e4e4;
+  border: none;
+  border-radius: 2em;
+  padding: 10px;
+  width: 20em;
+}
+
+input:focus {
+  outline: none;
+}
+
+button {
+  margin: 20px;
+  border: none;
+  border-radius: 2px;
+  padding: 9px 23px;
+  background: #8BC34A;
+  color: white;
+}
+
+.placeholder {
+  position: relative;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 17px;
+}
+
+.placeholder::after {
+  position: absolute;
+  left: 10px;
+  top: 14px;
+  content: attr(data-placeholder);
+  pointer-events: none;
+  opacity: 0.2;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 17px;
+}
+
+input {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 17px;
+}
+
+
+.fa-arrow-alt-circle-right:before {
+  position: relative;
+  right: 45px;
+  top: 7px;
+  color: #849684;
+}
+
+#outputContainer {
+  width: 80%;
+  text-align: center;
+  margin: 40px;
+  color: white;
+
+}
+
+#botIcon {
+  margin: 10px;
+  color: wheat;
+  font-size: 4em;
+
+}
+
+span {
+  background: #3c3c3b;
+  padding: 4px 35px;
+  border-radius: 23px;
+}
+
+button:hover {
+  background: yellowgreen;
+}
+
+button:focus {
+  outline: none;
+
+}
+#img{
+  display: none;
+  width:200px;
+  height: 200px;
+
+}
