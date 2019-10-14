@@ -15,18 +15,15 @@
    },
 
    { input: "show me a dog",
-     output: showMeaDog()
+     output: [showMeaDog]
    },
 
    { input: "set an alarm",
-     output: delayedAlert()
+     output: [delayedAlert]
    }
  ];
 
-//console.log(firstData);
-
 function reply(){
-
   // this variable taking the input from what user type and make it lowercase
   var question = document.querySelector("#input").value.toLowerCase();
 
@@ -40,50 +37,35 @@ function reply(){
   var filterType = null;
 
 // this variable searching the input arrays for possible answers.
-
 const filtered = firstData.filter((item) => item.input.includes(question));
-
-let shortAnswer = output[0].output.sort((a, b) => a.length - b.length );
-let longAnswer = output[0].output.sort((a, b) => b.length - a.length);
 
 /*  I declared a conditional statement to check if users input and data input are matching or not.
 If they are matching, it will give the possible answer depends on which radio button that user clicked. */
-  if(filtered.length > 0)
-  {
-
-    //if the user choose shortest answer
-    if(document.querySelector("#shortest").checked === true)
-    {
-      var computer = shortAnswer;
-
-        //if the user choose longest answer
-    }
-    else if(document.querySelector("#longest").checked === true){
-
-      var computer = longAnswer;
-
-      //if the user choose random answer
-    }
-    else {
-      var computer = filtered.output[randomNumber];
-    }
-
-    // if the user enters a input that is not in the input data
+if(question === ''){return false;}
+addToOutput(question);
+if(output.length > 0){
+  if(document.getElementById('longest').checked){
+    longOutput = output[0].output.sort((a, b) => b.length - a.length);
+    addToOutput(longOutput[0], 1);
+  }else if(document.getElementById('shortest').checked){
+    shortOutput = output[0].output.sort((a,b) => a.length - b.length);
+    addToOutput(shortOutput[0], 1);
+  }else{
+    addToOutput(output[0].output[randomNumber], 1);
   }
-  else {
-    history.textContent = "I don't understand that command. Please enter another";
+}else{
+  addToOutput("I don't understand that command. Please enter another.", 1);
+}
+
+function addToOutput(msg, sender){
+  sender = (sender) ? 'Bot':'You';
+  document.getElementById('output').textContent = sender + ' : ' + msg + '\n' + document.getElementById('output').textContent;
+}
   }
-
-  history.innerHTML += `You: ${question}\nbot: ${computer}\n`
-};
-
 //  attached a 'click' event listener to button to call function.
 document.getElementById("submit").addEventListener("click", function(){
   reply()
 });
-
-
-// function to get image with API and display it on the HTML page
 
 function showMeaDog(){
  var image = new XMLHttpRequest();
