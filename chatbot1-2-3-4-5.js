@@ -67,3 +67,23 @@ function delayedAlert() {
         alert("Did you forget about me? it's your friend, the Alarm!")
         }, 2000);
 }
+//=============================================================================
+//CHATBOT 5
+// Use async/await to write a function to call the Weather API
+//and parse the API upon a request for the weather if the user inputs “Show me the weather”
+async function callWeather() {
+  const executeFirst = await requestWeather();
+}
+
+var requestWeather = new XMLHttpRequest()
+  requestWeather.open('GET', 'https://openweathermap.org/api', 'api.openweathermap.org/data/2.5/forecast?id=524901&APPID=ded48b63426832eb7e0f825530b65a61',   true)
+    requestWeather.onload = function() {
+      var = promise = new Promise(function(resolve, reject) {
+        setTimeout(function() {
+          if (chatbot1.input[] = 'Show me the weather') {resolve(requestWeather); return
+          }
+          reject('Error')
+        })
+      }, 200)
+}
+requestWeather.send();
