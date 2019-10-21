@@ -15,6 +15,3 @@ Please see the instructions [here](https://docs.google.com/document/d/1sWx_g90eL
 
 Please see the instructions [here](https://docs.google.com/document/d/1LYZpU_kXgWwIJMclZ1ZSkXD4xSNh9-vzZwVoF7UtKI0/edit?usp=sharing)
 
-# Chatbot - week 13
-
-Please see the instructions [here] (https://docs.google.com/document/d/1DPSqERwbkiT84Ll3fRSxJlCSiX3ACPTt6sBvdB8G5AI/edit?usp=sharing)
