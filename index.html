@@ -1,7 +1,8 @@
 <!DOCTYPE HTML>
 <head>
   <title>My First Chatbot</title>
-  <link rel="stylesheet" type="text/css" href="chatbot_style.css">
+  <link rel="stylesheet" href="style.css">
+  <script src="main.js" defer></script>
 </head>
 
 <body>
@@ -11,9 +12,8 @@
       <h3> Talk to your bot!</h3>
       
       <div id="user">
-        <input id="input" type="text" placeholder="Say something" />
+        <input id="input" type="text" placeholder="Say something" value="How is the weather today?" />
         <button id="submit">Submit</button>
-
         <input type="radio" name="filterType" class="filterType" id="random" value="Random" checked> Random
         <input type="radio" name="filterType" class="filterType" id="shortest" value="Shortest Answer"> Shortest Answer
         <input type="radio" name="filterType" class="filterType" id="longest" value="Longest Answer"> Longest Answer
@@ -26,6 +26,7 @@
           <textarea id="output" name="ChatHistory" rows="15"></textarea>
           <br />
       </div>  
+      <div id="dog"></div>
 
   </div>
 </body>
